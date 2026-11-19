@@ -21,6 +21,22 @@ Run `com.ecommerce.OrderManagementApp` → *Run As → Java Application* and use
 | 6 | (d) | Update status only if the order exists and the status is valid (Pending / Shipped / Delivered / Cancelled), then show the updated order |
 | 7 | (e) | Total value `SUM(quantity * unit_price)`; delete an order only if its status is `Cancelled` |
 
+### Q1 REST API (same JDBC code, for Postman)
+Run `com.ecommerce.OrderApiApplication` → *Run As → Java Application*. Base URL `http://localhost:8081/orders` (port 8081, so it can run next to Q2).
+
+| Method | URL | Part | Responses |
+|---|---|---|---|
+| POST | `/orders/sample` | (a) | 201, lists inserted ids and skipped duplicates |
+| POST | `/orders` | (a) | 201 Created · 400 invalid · 409 duplicate order_id |
+| GET | `/orders` · `/orders/{id}` | – | 200 · 404 |
+| GET | `/orders/search?status=Pending` | (b) | 200, quantity &gt; 2, unit_price DESC |
+| PUT | `/orders/{id}/quantity?add=2` | (c) | 200 updated order · 404 |
+| PUT | `/orders/{id}/status?value=Shipped` | (d) | 200 updated order · 400 invalid status · 404 |
+| GET | `/orders/total` | (e) | 200 `{"totalOrderValue": ...}` |
+| DELETE | `/orders/{id}` | (e) | 200 if Cancelled · 400 not Cancelled · 404 |
+
+Postman collection: `Q1-OrderManagement/Order-API.postman_collection.json`.
+
 ## Q2 – Library Management REST API (Spring Boot)
 Run `com.college.library.LibraryManagementApplication` → *Run As → Java Application*. Base URL `http://localhost:8080/books`.
 

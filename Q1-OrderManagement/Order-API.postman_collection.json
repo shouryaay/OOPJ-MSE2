@@ -1,0 +1,23 @@
+{
+  "info": {
+    "name": "Q1 Order Management API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [{ "key": "baseUrl", "value": "http://localhost:8081" }],
+  "item": [
+    { "name": "(a) POST insert sample orders", "request": { "method": "POST", "url": "{{baseUrl}}/orders/sample" } },
+    { "name": "(a) POST add order 201", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": "{{baseUrl}}/orders",
+      "body": { "mode": "raw", "raw": "{\n  \"orderId\": 201,\n  \"customerName\": \"Ananya Rao\",\n  \"productName\": \"Tablet\",\n  \"quantity\": 3,\n  \"unitPrice\": 18000,\n  \"status\": \"Pending\"\n}", "options": { "raw": { "language": "json" } } } } },
+    { "name": "(a) POST duplicate order 201 (409)", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": "{{baseUrl}}/orders",
+      "body": { "mode": "raw", "raw": "{\n  \"orderId\": 201,\n  \"customerName\": \"Duplicate\",\n  \"productName\": \"Tablet\",\n  \"quantity\": 1,\n  \"unitPrice\": 100,\n  \"status\": \"Pending\"\n}", "options": { "raw": { "language": "json" } } } } },
+    { "name": "GET all orders", "request": { "method": "GET", "url": "{{baseUrl}}/orders" } },
+    { "name": "(b) GET search status=Pending, qty > 2", "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/orders/search?status=Pending", "host": ["{{baseUrl}}"], "path": ["orders", "search"], "query": [{ "key": "status", "value": "Pending" }] } } },
+    { "name": "(c) PUT increase quantity of 101 by 2", "request": { "method": "PUT", "url": { "raw": "{{baseUrl}}/orders/101/quantity?add=2", "host": ["{{baseUrl}}"], "path": ["orders", "101", "quantity"], "query": [{ "key": "add", "value": "2" }] } } },
+    { "name": "(c) PUT increase quantity of 999 (404)", "request": { "method": "PUT", "url": { "raw": "{{baseUrl}}/orders/999/quantity?add=2", "host": ["{{baseUrl}}"], "path": ["orders", "999", "quantity"], "query": [{ "key": "add", "value": "2" }] } } },
+    { "name": "(d) PUT status of 201 = Cancelled", "request": { "method": "PUT", "url": { "raw": "{{baseUrl}}/orders/201/status?value=Cancelled", "host": ["{{baseUrl}}"], "path": ["orders", "201", "status"], "query": [{ "key": "value", "value": "Cancelled" }] } } },
+    { "name": "(d) PUT invalid status (400)", "request": { "method": "PUT", "url": { "raw": "{{baseUrl}}/orders/102/status?value=Returned", "host": ["{{baseUrl}}"], "path": ["orders", "102", "status"], "query": [{ "key": "value", "value": "Returned" }] } } },
+    { "name": "(e) GET total order value", "request": { "method": "GET", "url": "{{baseUrl}}/orders/total" } },
+    { "name": "(e) DELETE 101 - not cancelled (400)", "request": { "method": "DELETE", "url": "{{baseUrl}}/orders/101" } },
+    { "name": "(e) DELETE 201 - cancelled (200)", "request": { "method": "DELETE", "url": "{{baseUrl}}/orders/201" } }
+  ]
+}
