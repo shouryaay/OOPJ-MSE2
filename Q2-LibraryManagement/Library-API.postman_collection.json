@@ -1,0 +1,20 @@
+{
+  "info": {
+    "name": "Q2 Library Management API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [{ "key": "baseUrl", "value": "http://localhost:8080" }],
+  "item": [
+    { "name": "1 POST add book 1", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": "{{baseUrl}}/books",
+      "body": { "mode": "raw", "raw": "{\n  \"id\": 1,\n  \"title\": \"Clean Code\",\n  \"author\": \"Robert C. Martin\",\n  \"category\": \"Programming\",\n  \"availableCopies\": 5\n}", "options": { "raw": { "language": "json" } } } } },
+    { "name": "2 POST add book 2", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": "{{baseUrl}}/books",
+      "body": { "mode": "raw", "raw": "{\n  \"id\": 2,\n  \"title\": \"Head First Java\",\n  \"author\": \"Kathy Sierra\",\n  \"category\": \"Programming\",\n  \"availableCopies\": 3\n}", "options": { "raw": { "language": "json" } } } } },
+    { "name": "3 GET all books", "request": { "method": "GET", "url": "{{baseUrl}}/books" } },
+    { "name": "4 GET book by id", "request": { "method": "GET", "url": "{{baseUrl}}/books/1" } },
+    { "name": "5 PUT update book 2", "request": { "method": "PUT", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": "{{baseUrl}}/books/2",
+      "body": { "mode": "raw", "raw": "{\n  \"title\": \"Head First Java (3rd Edition)\",\n  \"author\": \"Kathy Sierra & Bert Bates\",\n  \"category\": \"Java\",\n  \"availableCopies\": 7\n}", "options": { "raw": { "language": "json" } } } } },
+    { "name": "6 DELETE book 2", "request": { "method": "DELETE", "url": "{{baseUrl}}/books/2" } },
+    { "name": "7 DELETE book 2 again (404)", "request": { "method": "DELETE", "url": "{{baseUrl}}/books/2" } },
+    { "name": "8 GET book 99 (404)", "request": { "method": "GET", "url": "{{baseUrl}}/books/99" } }
+  ]
+}
